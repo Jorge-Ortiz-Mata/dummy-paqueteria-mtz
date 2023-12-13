@@ -4,6 +4,9 @@ class SellsController < AuthenticatedController
 
   def index
     @departure_date = DepartureDate.equal_or_greater_than_today.first
+
+    return unless @departure_date.present?
+
     @sells = @departure_date.sells.order(shipment_number: :desc).includes(:articles)
     authorize @sells
   end

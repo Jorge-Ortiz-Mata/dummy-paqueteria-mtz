@@ -55,5 +55,5 @@ Choose Paquetería Martinez for all your delivery needs, and experience the diff
 In order to launch this web application in local development, we need to install Docker and launch de PSQL server:
 
 ```
-docker run -p 5432:5432 --rm --name postgresql-container -e POSTGRES_PASSWORD=postgres -v paqueteria-martinez:/var/lib/postgresql/data postgres
+docker run -p 5432:5432 --rm --name postgresql-container -e POSTGRES_PASSWORD=postgres -v dummy-paqueteria-martinez:/var/lib/postgresql/data postgres
 ```
