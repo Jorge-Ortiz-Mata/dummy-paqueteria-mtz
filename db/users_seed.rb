@@ -1,5 +1,4 @@
-# default_users = ['juan@gmail.com', 'ana@gmail.com', 'ortiz.mata.jorge@gmail.com']
-default_users = ['ortiz.mata.jorge@gmail.com', 'gael4531@gmail.com']
+default_users = ['ortiz.mata.jorge@gmail.com', 'villanuevamata1627@gmail.com']
 
 default_users.each do |email|
   user = User.find_by(email: email)
