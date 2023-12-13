@@ -1,0 +1,5 @@
+<%= turbo_frame_tag 'new_departure_date' do %>
+  <%= render 'shared/modal', { title: 'Añadir nueva fecha de salida' } do %>
+    <%= render 'form', { departure_date: @departure_date, id: 'new_departure_date_form' } %>
+  <% end %>
+<% end %>

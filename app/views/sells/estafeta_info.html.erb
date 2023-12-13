@@ -1,0 +1,5 @@
+<%= turbo_frame_tag 'estafeta', class:"flex flex-col w-full" do %>
+  <%= render 'shared/modal', { title: 'Servicio de mensajería' } do %>
+    <%= render 'sells/forms/estafeta_form', { estafeta_form: @estafeta_form, sell: @sell } %>
+  <% end %>
+<% end %>

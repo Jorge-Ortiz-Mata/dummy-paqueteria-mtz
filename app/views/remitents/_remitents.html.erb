@@ -1,0 +1,26 @@
+<div id="remitents" class="flex flex-col w-full overflow-auto max-h-[500px]">
+  <% if remitents.any? %>
+    <div class="flex w-full bg-gray-100 rounded">
+      <div class="w-6/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">Nombre</div>
+      <div class="w-4/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">Número de teléfono</div>
+      <div class="w-2/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor text-center">Editar</div>
+    </div>
+    <div class="flex flex-col w-full">
+      <% remitents.each do |remitent| %>
+        <div class="flex items-center w-full hover:bg-gray-100 p-1 duration-300 border-b">
+          <%= link_to remitent_destinataries_path(remitent, sell_id: sell.id), class: 'font-semibold text-xs lg:text-sm text-sidebarTextColor p-1 w-6/12 underline duration-300 hover:text-primary', data: { turbo_frame: 'destinataries' } do %>
+            <%= remitent.name %>
+          <% end %>
+          <div class="font-regular text-xs lg:text-sm text-sidebarTextColor p-1 w-4/12"><%= remitent.phone_number %></div>
+          <div class="text-xs lg:text-sm text-sidebarTextColor p-1 w-2/12 items-center justify-center flex">
+            <%= link_to edit_remitent_path(remitent, sell_id: sell.id), data: { turbo_frame: 'remitent' }, class: "text-lg font-semibold gap-2 flex items-center text-primary hover:text-cyan-800 duration-300" do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-sm sm:text-base text-sidebarTextColor">No se encontró ningún remitente</p>
+  <% end %>
+</div>

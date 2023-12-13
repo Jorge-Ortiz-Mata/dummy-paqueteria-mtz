@@ -1,0 +1,9 @@
+<tr>
+  <td style="width: 15%; padding: 10px;"><%= article_sell.article.name %></td>
+  <td style="width: 15%; padding: 10px; text-align: right;">$ <%= number_with_delimiter(article_sell.article.price.round(2), :delimiter => ',') %> USD</td>
+  <td style="width: 20%; padding: 10px; text-align: center;"><%=  article_sell.special_price_text %></td>
+  <td style="width: 10%; padding: 10px; text-align: center;"><%=  article_sell.quantity %> pz</td>
+  <td style="width: 10%; padding: 10px; text-align: center;"><%=  article_sell.insured_articles_text %></td>
+  <td style="width: 15%; padding: 10px; text-align: center;"><%=  article_sell.insurance_policy_text %></td>
+  <td style="width: 15%; padding: 10px; text-align: right;">$ <%= number_with_delimiter(article_sell.revenue.round(2), :delimiter => ',') %> USD</td>
+</tr>

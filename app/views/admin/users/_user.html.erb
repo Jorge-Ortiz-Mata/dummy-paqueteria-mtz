@@ -1,0 +1,21 @@
+<div class="flex items-center w-full hover:bg-gray-100 p-2 duration-300 border-b">
+  <div class="flex items-center gap-2 font-semibold text-xs xl:text-sm text-sidebarTextColor w-3/12">
+    <%= user.profile.full_name %>
+  </div>
+  <div class="font-semibold text-xs xl:text-sm text-sidebarTextColor w-2/12"><%= user.profile.phone_number %></div>
+  <div class="font-semibold text-xs xl:text-sm text-sidebarTextColor w-3/12"><%= user.email %></div>
+  <div class="font-semibold text-xs xl:text-sm text-sidebarTextColor w-2/12"><%= user.created_at_formatted %></div>
+  <div class="font-semibold text-xs xl:text-sm text-sidebarTextColor w-1/12"><%= humanize_role(user.role) %></div>
+  <div class="font-semibold text-xs xl:text-sm text-sidebarTextColor w-1/12 gap-5 flex items-center justify-center">
+    <% if user.email.eql?('ortiz.mata.jorge@gmail.com') || user.email.eql?('gael4531@gmail.com') %>
+      ---
+    <% else %>
+      <%= link_to edit_admin_user_path(user.token_id), class: 'flex items-center', data: { turbo_frame: 'admin_edit_user' } do %>
+        <i class="fa-solid fa-pen-to-square text-primary"></i>
+      <% end %>
+      <%= button_to admin_user_path(user.token_id), method: :delete, class: 'flex items-center cursor-pointer', form: { data: { turbo_confirm: 'Estas seguro de eliminar a este usuario?' } } do %>
+        <i class="fa-solid fa-trash text-danger"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div>

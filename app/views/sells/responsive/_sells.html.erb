@@ -1,0 +1,17 @@
+<div class="flex md:hidden flex-col w-full gap-2">
+  <div class="flex w-full bg-gray-100 rounded">
+    <div class="w-1/12 p-1 font-bold text-xs sm:text-sm text-sidebarTextColor">ID</div>
+    <div class="w-7/12 p-1 font-bold text-xs sm:text-sm text-sidebarTextColor">Creación del envío</div>
+    <div class="w-4/12 p-1 font-bold text-xs sm:text-sm text-sidebarTextColor text-center">No. de artículos</div>
+  </div>
+
+  <div class="flex flex-col w-full">
+    <% sells.each do |sell| %>
+      <%= link_to sell_path(sell), class: 'flex items-center w-full hover:bg-gray-100 p-1 duration-300 border-b' do %>
+        <div class="font-semibold text-xs text-sidebarTextColor p-1 w-1/12"><%= sell.id %></div>
+        <div class="font-semibold text-xs text-sidebarTextColor p-1 w-7/12"><%= I18n.l(sell.created_at.to_time, format: :long) %></div>
+        <div class="font-semibold text-xs text-sidebarTextColor p-1 w-4/12 text-center"><%= sell.articles.length %></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

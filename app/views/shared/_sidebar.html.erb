@@ -1,0 +1,65 @@
+<div class="hidden lg:flex flex-col justify-between gap-10 h-full px-5 py-10 fixed lg:w-3/12 xl:w-2/12 shadow border">
+  <%= link_to root_path, class: 'flex items-center gap-2' do %>
+    <%= image_tag('logo-paqueteria.png', class: 'w-10 h-10 2xl:w-16 2xl:h-16') %>
+    <div class="flex flex-col gap-0">
+      <h2 class="font-semibold text-sidebarTextColor text-xl">Paquetería Martínez</h2>
+    </div>
+  <% end %>
+
+  <ul class="flex flex-col w-full">
+    <% if current_user.editor? || current_user.admin? %>
+      <li class="flex items-center w-full">
+        <%= link_to root_path, class: style_to_sidebar_link(root_path) do %>
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        <% end %>
+      </li>
+
+      <li class="flex items-center w-full">
+        <%= link_to departure_dates_path, class: style_to_sidebar_link(departure_dates_path) do %>
+          <i class="fa-solid fa-plane-up"></i>
+          <span>Fechas de salida</span>
+        <% end %>
+      </li>
+
+      <li class="flex items-center w-full">
+        <%= link_to articles_path, class: style_to_sidebar_link(articles_path) do %>
+          <i class="fa-solid fa-warehouse"></i>
+          <span>Articulos</span>
+        <% end %>
+      </li>
+
+      <li class="flex items-center w-full">
+        <%= link_to sells_path, class: style_to_sidebar_link(sells_path) do %>
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Envíos</span>
+        <% end %>
+      </li>
+    <% end %>
+
+    <% if current_user.admin? %>
+      <li class="flex items-center w-full">
+        <%= link_to admin_users_path, class: style_to_sidebar_link(admin_users_path) do %>
+          <i class="fa-solid fa-gear"></i>
+          <span>Administrador</span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <% if current_user %>
+    <div class="flex flex-col w-full items-end gap-5">
+      <%= link_to user_path(current_user.token_id), class: 'flex items-center w-full justify-end gap-2' do %>
+        <div class="flex flex-col">
+          <h6 class="font-bold text-sm text-end"><%= current_user.profile.full_name %></h6>
+          <p class="font-medium text-sm text-end"><%= current_user.email %></p>
+        </div>
+      <% end %>
+      <%= button_to logout_path, method: :delete, class: 'btn-danger' do  %>
+        <i class="fa-solid fa-angles-left"></i>
+        <span>Cerrar sesión</span>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

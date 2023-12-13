@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  article: one
+  quantity: 1
+  day: MyString
+  date_of_sell: 2023-09-05
+  comment: MyString
+
+two:
+  article: two
+  quantity: 1
+  day: MyString
+  date_of_sell: 2023-09-05
+  comment: MyString

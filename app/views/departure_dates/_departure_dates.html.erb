@@ -1,0 +1,55 @@
+<div class="flex flex-col md:flex-row items-start w-full gap-5 h-full">
+  <div class="bg-white shadow rounded border px-2 sm:px-5 py-10 w-full md:w-3/6 xl:2/6 gap-10 flex flex-col justify-center">
+    <% if next_departure_dates.length > 0 %>
+      <h3 class="font-semibold text-success text-center text-lg xl:text-xl">Próxima fecha de salida</h3>
+      <div class="flex items-center justify-center w-full">
+        <i class="fa-solid fa-plane-up text-8xl xl:text-9xl text-success"></i>
+      </div>
+      <div class="flex flex-col gap-10 w-full items-center justify-center">
+        <span class="text-success text-center text-lg xl:text-xl font-bold underline"><%= I18n.l(next_departure_dates.first.date.to_time, format: :long) %></span>
+        <%= link_to new_departure_date_path, class: "flex text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2", data: { turbo_frame: 'new_departure_date' } do %>
+          <span>Añadir fecha de salida</span>
+          <i class="fa-solid fa-plus text-base"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <h3 class="font-semibold text-sidebarTextColor text-center text-lg xl:text-xl">No hay próximas salidas agregadas</h3>
+      <div class="flex items-center justify-center w-full">
+        <i class="fa-solid fa-plane-up text-8xl xl:text-9xl text-sidebarTextColor"></i>
+      </div>
+      <div class="flex flex-col gap-10 w-full items-center justify-center">
+        <span class="text-center text-sidebarTextColor text-lg xl:text-xl font-bold underline">Sin fechas de salida por el momento</span>
+        <%= link_to new_departure_date_path, class: "flex text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2", data: { turbo_frame: 'new_departure_date' } do %>
+          <span>Añadir fecha de salida</span>
+          <i class="fa-solid fa-plus text-base"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-full md:w-3/6 xl:w-4/6 bg-white px-2 sm:px-5 py-5 border shadow">
+    <% if next_departure_dates.length > 0 %>
+      <% next_departure_dates.each do |departure_date| %>
+        <%= link_to departure_date_path(departure_date), class: 'flex items-center w-full duration-300 hover:bg-gray-100 py-2 border-b' do %>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-plane-up text-xl text-success"></i>
+            <p class="font-semibold text-green-700"><%= I18n.l(departure_date.date.to_time, format: :long) %></p>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <span class="text-sidebarTextColor font-semibold">Sin fechas de salida por el momento</span>
+    <% end %>
+
+    <% if prev_departure_dates.length > 0 %>
+      <% prev_departure_dates.each do |departure_date| %>
+        <%= link_to departure_date_path(departure_date), class: 'flex items-center w-full duration-300 hover:bg-gray-100 py-2 border-b' do %>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-plane-up text-xl text-sidebarTextColor"></i>
+            <p class="font-semibold text-sidebarTextColor"><%= I18n.l(departure_date.date.to_time, format: :long) %></p>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

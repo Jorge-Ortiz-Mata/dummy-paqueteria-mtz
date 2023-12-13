@@ -1,0 +1,33 @@
+<%= form_with(model: user, url: admin_user_path(user.token_id), method: :patch, class: "#{state} flex flex-col w-full gap-5", id: 'edit_admin_user_account') do |f| %>
+  <h3 class="font-semibold text-xl text-sidebarTextColor">Editar cuenta</h3>
+  <%= f.hidden_field :token_id %>
+
+  <div class="flex flex-col w-full items-start">
+    <%= f.label :email, 'Correo electrónico:', class: 'font-bold' %>
+    <%= f.email_field :email, class: "input-tailwindcss font-semibold #{ error_input_border(user.errors.include?(:email)) }" %>
+    <% if user.errors.include?(:email) %>
+      <%= render 'shared/input_error_msg', { object: user, attribute: :email } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-full items-start">
+    <%= f.label :password, 'Contraseña:', class: 'font-bold' %>
+    <%= f.password_field :password, class: "input-tailwindcss font-semibold #{ error_input_border(user.errors.include?(:password)) }" %>
+    <span class="text-sm text-sidebarTextColor font-medium italic">La contraseña debe tener al menos 8 caracteres</span>
+    <% if user.errors.include?(:password) %>
+      <%= render 'shared/input_error_msg', { object: user, attribute: :password } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col w-full gap-1 items-start">
+    <%= f.label :role, 'Rol:', class: 'font-bold mb-1' %>
+    <%= f.select(:role, User.roles.keys.map { |n| [humanize_role(n), n] }, { include_blank: true },{ class: "input-tailwindcss font-semibold #{ error_input_border(user.errors.include?(:role)) }" }) %>
+    <% if user.errors.include?(:role) %>
+      <%= render 'shared/input_error_msg', { object: user, attribute: :role } %>
+    <% end %>
+  </div>
+
+  <div class="flex items-center mt-10 justify-end">
+    <%= f.submit 'Actualizar cuenta', class: 'text-white px-3.5 py-2 rounded-lg shadow bg-sky-800 duration-300 hover:bg-gray-700 cursor-pointer font-semibold text-center', data: { turbo_frame: '_top' } %>
+  </div>
+<% end %>

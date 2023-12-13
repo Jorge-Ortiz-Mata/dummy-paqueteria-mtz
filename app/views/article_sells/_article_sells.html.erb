@@ -1,0 +1,35 @@
+<div class="flex flex-col w-full gap-5" id="article_sells">
+  <div class="flex flex-col w-full bg-white p-5 shadow rounded border">
+    <%= render 'article_sells/form', { sell: sell, article_sell: ArticleSell.new, btn_text: 'Añadir articulo' } %>
+  </div>
+
+  <div class="flex flex-col w-full gap-5 bg-white p-5 shadow rounded border">
+    <div class="flex flex-row w-full items-end sm:items-center justify-between">
+      <h5 class="font-bold text-base sm:text-lg text-sidebarTextColor">Articulos añadidos</h5>
+      <div class="flex items-center gap-5">
+        <p class="text-xs sm:text-base font-light text-sidebarTextColor">Artículos: <span class="font-bold"><%= number_with_delimiter(sell.article_sells.sum(:quantity).round(2), :delimiter => ',') %> pz</span></p>
+        <p class="text-xs sm:text-base font-light text-sidebarTextColor">Ganancias: <span class="font-bold">$ <%= number_with_delimiter(sell.article_sells.sum(:revenue).round(2), :delimiter => ',') %> USD</span></p>
+      </div>
+    </div>
+
+    <%= render 'article_sells/responsive/article_sells', { sell: sell } %>
+
+    <div class="hidden md:flex flex-col gap-2">
+      <div class="flex w-full bg-gray-100 rounded px-2 lg:px-5 gap-2">
+        <div class="w-2/12 text-sidebarTextColor text-sm font-bold flex items-center justify-center">Articulo</div>
+        <div class="w-2/12 text-sidebarTextColor text-sm font-bold flex items-center justify-center text-center">Precio Unit.</div>
+        <div class="w-2/12 text-sidebarTextColor text-sm font-bold flex items-center justify-center text-center">Precio Especial</div>
+        <div class="w-1/12 text-sidebarTextColor text-sm font-bold flex items-center justify-center text-center">Cantidad</div>
+        <div class="w-1/12 text-sidebarTextColor text-sm font-bold flex items-center justify-center text-center">Articulos asegurados</div>
+        <div class="w-1/12 text-sidebarTextColor text-sm font-bold flex items-center justify-center text-center">Aseguranza</div>
+        <div class="w-2/12 text-sidebarTextColor text-sm font-bold flex items-center justify-end text-end">Ganancias</div>
+        <div class="w-1/12 text-sidebarTextColor text-sm font-bold flex items-center justify-end text-end">Opciones</div>
+      </div>
+      <div class="flex flex-col w-full gap-2 px-5">
+        <% sell.article_sells.includes(:insurance_policy).order(created_at: :asc).each do |article_sell| %>
+          <%= render 'article_sells/article_sell', { article_sell: article_sell } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

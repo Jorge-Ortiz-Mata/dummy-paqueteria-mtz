@@ -1,0 +1,11 @@
+<%= turbo_frame_tag 'new_sell', class:"flex flex-col w-full" do %>
+  <%= render 'shared/modal', { title: 'Añadir nuevo envío' } do %>
+    <% if @departure_date.present? %>
+      <%= render 'form', { sell: @sell, id: 'new_sell_form', btn_text: 'Crear' } %>
+    <% else %>
+      <p class="font-medium text-sidebarTextColor text-center">
+        Actualmente no hay ninguna fecha de salida próxima. <br>
+        Por favor, agrega una fecha de salida mayor a la fecha de hoy para continuar</p>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,52 @@
+<section class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <h1 class="font-bold text-2xl text-sidebarTextColor">Editar precio</h1>
+  <% end %>
+
+  <div class="flex flex-col xl:flex-row px-2 sm:px-5 py-5 w-full gap-5">
+    <div class="flex flex-col overflow-y-auto px-2 sm:px-5 py-5 gap-10 bg-white border rounded shadow w-full">
+      <div class="flex flex-col w-full gap-5">
+        <% if @default_price.box? %>
+          <h3 class="font-bold text-sidebarTextColor">Precio de caja de carton</h3>
+          <p class="font-medium text-sidebarTextColor">Características de la caja de cartón:</p>
+          <ul class="flex gap-10">
+            <li class="flex text-sidebarTextColor gap-2">
+              <span>Ancho:</span>
+              <span class="font-semibold"><%= @default_price.width %> in</span>
+            </li>
+            <li class="flex text-sidebarTextColor gap-2">
+              <span>Largo:</span>
+              <span class="font-semibold"><%= @default_price.length %> in</span>
+            </li>
+            <li class="flex text-sidebarTextColor gap-2">
+              <span>Altura:</span>
+              <span class="font-semibold"><%= @default_price.height %> in</span>
+            </li>
+            <li class="flex text-sidebarTextColor gap-2">
+              <span>Volúmen:</span>
+              <span class="font-semibold"><%= number_with_delimiter(@default_price.volume.round(2), :delimiter => ',') %> in3</span>
+            </li>
+            <li class="flex text-sidebarTextColor gap-2">
+              <span>Precio:</span>
+              <span class="font-semibold">$<%= number_with_delimiter(@default_price.price.round(2), :delimiter => ',') %> USD</span>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+
+      <%= form_with(model: @default_price, class: 'flex flex-col items-center w-full gap-5') do |form| %>
+        <div class="flex flex-col gap-1 w-full items-start">
+          <%= form.label :price, 'Precio:', class: 'font-bold mb-1 required' %>
+          <%= form.number_field :price, step: :any, class: "input-tailwindcss font-semibold #{ error_input_border(@default_price.errors.include?(:price)) }" %>
+          <% if @default_price.errors.include?(:price) %>
+            <%= render 'shared/input_error_msg', { object: @default_price, attribute: :price } %>
+          <% end %>
+        </div>
+
+        <div class="flex items-center w-full justify-end">
+          <%= form.submit 'Actualizar', class: "btn-success cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

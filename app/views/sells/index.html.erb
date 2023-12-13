@@ -1,0 +1,36 @@
+<%= turbo_frame_tag 'new_sell' %>
+
+<div class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <%= link_to sells_path, class: 'flex items-center' do %>
+      <h1 class="font-bold text-2xl text-sidebarTextColor">Envíos</h1>
+    <% end %>
+
+    <%= form_with(model: Sell.new, id: "new_sell_form", class: "flex items-center") do |form| %>
+      <%= form.submit 'Añadir nuevo envío', class: "btn-success bg-green-500 text-white font-semibold cursor-pointer", data: { turbo_frame: '_top' } %>
+    <% end %>
+  <% end %>
+
+  <% if @sells.any? %>
+    <div class="flex flex-col w-full px-2 sm:px-5 py-5">
+      <%= render 'sells', { sells: @sells } %>
+    </div>
+  <% else %>
+    <div class="flex flex-col py-5 px-2 sm:px-5 rounded shadow border w-full h-full items-center justify-center gap-10">
+      <i class="fa-solid fa-truck-fast text-[120px] sm:text-[190px] text-sidebarTextColor"></i>
+      <div class="flex flex-col gap-2">
+        <h5 class="font-semibold text-lg text-sidebarTextColor text-center">Sin envíos.</h5>
+        <%  %>
+        <p class="text-sidebarTextColor text-center">
+          Actualmente no tienes registrado ningún envío para la nueva fecha de salida.
+        </p>
+        <div class="flex items-center justify-center">
+          <%= link_to new_sell_path, class: "flex lg:hidden text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2", data: { turbo_frame: 'new_sell' } do %>
+            <span>Añadir envío</span>
+            <i class="fa-solid fa-plus text-base"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

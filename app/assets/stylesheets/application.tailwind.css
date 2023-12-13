@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input-tailwindcss {
+    @apply shadow rounded border border-gray-200 px-3 py-2 w-full text-sm;
+  }
+  .btn-without-bg {
+    @apply flex text-sm font-bold rounded px-4 py-2 text-white items-center gap-2;
+  }
+  .btn-success {
+    @apply flex text-sm font-bold rounded bg-success hover:bg-green-700 px-4 py-2 text-white items-center gap-2 duration-300;
+  }
+  .btn-danger {
+    @apply flex text-sm font-bold rounded bg-danger hover:bg-red-700 px-4 py-2 text-white items-center gap-2 duration-300;
+  }
+  .btn-primary {
+    @apply flex text-sm font-bold rounded bg-primary hover:bg-cyan-700 px-4 py-2 text-white items-center gap-2 duration-300;
+  }
+  .btn-warning {
+    @apply flex text-sm font-bold rounded bg-warning hover:bg-yellow-700 px-4 py-2 text-white items-center gap-2 duration-300;
+  }
+  .table-header {
+    @apply flex w-full bg-slate-100 p-2 border rounded shadow;
+  }
+}

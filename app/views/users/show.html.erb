@@ -1,0 +1,61 @@
+<div class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <h1 class="font-bold text-2xl text-sidebarTextColor">Mi perfil</h1>
+  <% end %>
+
+  <section class="flex flex-col px-2 py-5 sm:px-5 gap-5">
+    <div class="flex flex-col w-full gap-5 bg-white rounded shadow border py-5 px-2 sm:px-5">
+      <h4 class="font-semibold text-sidebarTextColor text-xl">Información general</h4>
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2 text-sm sm:text-base">
+          <span class="text-sidebarTextColor">Nombre:</span>
+          <span class="font-bold text-sidebarTextColor"><%= current_user.profile.full_name.blank? ? '--' : current_user.profile.full_name %></span>
+        </div>
+        <div class="flex items-center gap-2 text-sm sm:text-base">
+          <span class="text-sidebarTextColor">Correo electrónico:</span>
+          <span class="font-bold text-sidebarTextColor"><%= current_user.email %></span>
+        </div>
+        <div class="flex items-center gap-2 text-sm sm:text-base">
+          <span class="text-sidebarTextColor">Número de teléfono:</span>
+          <span class="font-bold text-sidebarTextColor"><%= current_user.profile.phone_number.blank? ? '--' : current_user.profile.phone_number %></span>
+        </div>
+        <div class="flex items-center gap-2 text-sm sm:text-base">
+          <span class="text-sidebarTextColor">Fecha de alta:</span>
+          <span class="font-bold text-sidebarTextColor"><%= current_user.created_at_formatted %></span>
+        </div>
+      </div>
+
+      <div class="flex w-full justify-end gap-2">
+        <%= link_to edit_user_profile_path(current_user.profile.id, user_id: current_user.token_id), class: 'btn-success' do %>
+          <i class="fa-solid fa-pen"></i>
+          <span>Editar perfil</span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex flex-col w-full p-5 rounded shadow border bg-white gap-10">
+      <h6 class="font-bold text-sidebarTextColor text-2xl">Información de la cuenta</h6>
+
+      <div class="flex flex-col items-start gap-5">
+        <p class="font-medium text-sm sm:text-base text-sidebarTextColor">
+          Para editar tu correo actual y contraseña, puedes hacerlo dando click en el botón inferior
+        </p>
+        <%= link_to edit_user_path(current_user.token_id), class: 'btn-primary' do %>
+          <i class="fa-solid fa-pen"></i>
+          <span>Editar cuenta</span>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col items-start gap-5">
+        <p class="font-medium text-sm sm:text-base text-sidebarTextColor">
+          Puedes cancelar tu cuenta cuando sea necesario. Una vez que lo hagas, no podrás regresar los cambios anteriores.
+        </p>
+
+        <%= button_to destroy_user_path, method: :delete, id: 'cancel_account', form: { data: { turbo_confirm: '¿Estás seguro de inhabilitar tu cuenta?' } }, class: 'btn-danger bg-red-500' do %>
+          <i class="fa-solid fa-trash"></i>
+          <span>Cancelar cuenta</span>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</div>

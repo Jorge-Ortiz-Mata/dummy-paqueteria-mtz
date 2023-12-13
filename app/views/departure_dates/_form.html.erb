@@ -1,0 +1,13 @@
+<%= form_with(model: departure_date, class: "flex flex-col w-full gap-5", id: id) do |form| %>
+  <div class="flex flex-col gap-1 w-full items-start">
+    <%= form.label :date, 'Fecha de salida', class: 'font-bold mb-1 required' %>
+    <%= form.date_field :date, class: "input-tailwindcss font-semibold #{ error_input_border(departure_date.errors.include?(:date)) }" %>
+    <% if departure_date.errors.include?(:date) %>
+      <%= render 'shared/input_error_msg', { object: departure_date, attribute: :date } %>
+    <% end %>
+  </div>
+
+  <div class="flex items-center justify-end gap-3 mt-5">
+    <%= form.submit 'Guardar', class: "rounded py-2 px-4 bg-green-500 text-white font-semibold cursor-pointer", data: { turbo_frame: '_top' } %>
+  </div>
+<% end %>

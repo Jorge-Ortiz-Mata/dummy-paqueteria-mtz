@@ -1,0 +1,19 @@
+<%= turbo_frame_tag "article_sell_#{article_sell.id}", class: 'flex items-center w-full border-b py-2 gap-2' do %>
+  <div class="w-2/12 text-sidebarTextColor font-semibold text-sm flex items-center gap-2">
+    <%= article_sell.article.name %>
+  </div>
+  <div class="w-2/12 text-sidebarTextColor font-semibold text-sm text-center">$ <%= number_with_delimiter(article_sell.article.price.round(2), :delimiter => ',') %> USD</div>
+  <div class="w-2/12 text-sidebarTextColor font-semibold text-sm text-center"><%= article_sell.special_price_text %></div>
+  <div class="w-1/12 text-sidebarTextColor font-semibold text-sm text-center"><%= article_sell.quantity %></div>
+  <div class="w-1/12 text-sidebarTextColor font-semibold text-sm text-center"><%= article_sell.insured_articles_text %></div>
+  <div class="w-1/12 text-sidebarTextColor font-semibold text-sm text-center"><%= article_sell.insurance_policy_text %> </div>
+  <div class="w-2/12 text-sidebarTextColor font-semibold text-sm text-end">$ <%= number_with_delimiter(article_sell.revenue.round(2), :delimiter => ',') %> USD</div>
+  <div class="w-1/12 flex items-center justify-end gap-5">
+    <%= link_to edit_sell_article_sell_path(article_sell, sell_id: article_sell.sell.id), class: 'font-semibold gap-2 flex items-center text-primary hover:text-cyan-800 duration-300' do %>
+      <i class="fa-solid fa-pen-to-square"></i>
+    <% end %>
+    <%= button_to sell_article_sell_path(article_sell, sell_id: article_sell.sell.id), method: :delete, form: { data: { turbo_confirm: 'Estas seguro de eliminar este articulo?' } }, class: 'text-lg font-semibold gap-2 flex items-center text-danger hover:text-red-800 duration-300' do %>
+      <i class="fa-solid fa-trash"></i>
+    <% end %>
+  </div>
+<% end %>

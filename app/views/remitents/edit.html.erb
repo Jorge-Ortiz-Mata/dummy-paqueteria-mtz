@@ -1,0 +1,10 @@
+<%= turbo_frame_tag 'remitent', class:"flex flex-col w-full" do %>
+  <%= render 'shared/modal', { title: 'Actualizar remitente' } do %>
+    <%= render 'form',
+        {
+          remitent: @remitent,
+          url: remitent_path(@remitent, sell_id: @sell.id),
+        }
+    %>
+  <% end %>
+<% end %>

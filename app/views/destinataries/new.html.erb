@@ -1,0 +1,11 @@
+<%= turbo_frame_tag 'remitent_destinatary' do %>
+  <h2 class="text-lg font-bold text-sidebarTextColor underline mb-5">Añadir destinatario</h2>
+
+  <%= render 'form',
+      {
+        remitent: @remitent,
+        destinatary: @destinatary,
+        url: remitent_destinataries_path(@remitent, sell_id: @sell.id)
+      }
+  %>
+<% end %>

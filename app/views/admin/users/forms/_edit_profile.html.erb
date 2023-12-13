@@ -1,0 +1,32 @@
+<%= form_with(model: user, url: update_profile_admin_user_path(user.token_id), method: :patch, class: "#{state} flex flex-col w-full gap-5", id: 'edit_admin_user_profile') do |f| %>
+  <h3 class="font-semibold text-xl text-sidebarTextColor">Editar perfil</h3>
+  <%= f.hidden_field :token_id %>
+
+  <div class="flex flex-col gap-1 w-full items-start">
+    <%= f.label :first_name, 'Nombre:', class: 'font-bold mb-1' %>
+    <%= f.text_field :first_name, class: "input-tailwindcss font-semibold #{ error_input_border(user.errors.include?(:first_name)) }" %>
+    <% if user.errors.include?(:first_name) %>
+      <%= render 'shared/input_error_msg', { object: user, attribute: :first_name } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col gap-1 w-full items-start">
+    <%= f.label :last_name, 'Apellido(s):', class: 'font-bold mb-1' %>
+    <%= f.text_field :last_name, class: "input-tailwindcss font-semibold #{ error_input_border(user.errors.include?(:last_name)) }" %>
+    <% if user.errors.include?(:last_name) %>
+      <%= render 'shared/input_error_msg', { object: user, attribute: :last_name } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col gap-1 w-full items-start">
+    <%= f.label :phone_number, 'Número de teléfono:', class: 'font-bold mb-1' %>
+    <%= f.text_field :phone_number, class: "input-tailwindcss font-semibold #{ error_input_border(user.errors.include?(:phone_number)) }" %>
+    <% if user.errors.include?(:phone_number) %>
+      <%= render 'shared/input_error_msg', { object: user, attribute: :phone_number } %>
+    <% end %>
+  </div>
+
+  <div class="flex items-center mt-10 justify-end">
+    <%= f.submit 'Actualizar perfil', class: 'text-white px-3.5 py-2 rounded-lg shadow bg-black duration-300 hover:bg-gray-700 cursor-pointer font-semibold text-center', data: { turbo_frame: '_top' } %>
+  </div>
+<% end %>

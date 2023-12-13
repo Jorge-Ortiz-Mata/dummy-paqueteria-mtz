@@ -1,0 +1,51 @@
+<%= turbo_frame_tag 'whatsapp', class:"flex flex-col w-full" do %>
+  <%= render 'shared/modal', { title: "Enviar mensaje de Whatsapp." } do %>
+    <ul class="flex flex-col w-full list-disc text-sidebarTextColor p-5 gap-3">
+      <li>
+        <span>Servicio de mensajería:</span>
+        <span class="font-semibold underline"><%= @sell.carrier_name_text  %></span>
+      </li>
+      <li>
+        <span>No de guía:</span>
+        <span class="font-semibold underline"><%= @sell.tracking_guide_text  %></span>
+      </li>
+      <li>
+        <span>Nombre del remitente:</span>
+        <span class="font-semibold"><%= @sell.remitent_name  %></span>
+      </li>
+      <li>
+        <span>Número del remitente:</span>
+        <span class="underline font-semibold"><%= @sell.remitent_phone_number  %></span>
+      </li>
+      <li>
+        <span>Destinatario:</span>
+        <span class="font-semibold"><%= @sell.destinatary_full_name %></span>
+      </li>
+      <li>
+        <span>Dirección del destinatario:</span> <br>
+        <span class="font-semibold"><%= @sell.destinatary_deliver_place %></span>
+      </li>
+    </ul>
+
+    <div class="flex justify-end mt-10">
+      <% if @sell.tracking_guide.present? && @sell.destinatary.present? && @sell.remitent.present? %>
+        <%= button_to send_whatsapp_sell_path(@sell), class: 'btn-success', form: { data: { turbo_confirm: '¿Estas seguro de enviar un mensaje de whatsapp con la información del envío?', turbo_frame: '_top' } } do %>
+          <span>Enviar</span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if @sell.tracking_guide.blank? || @sell.destinatary.blank? || @sell.remitent.blank? %>
+      <div class="text-sm text-sidebarTextColor my-5 flex flex-col gap-5">
+        <p>
+          Para enviar el mensaje, se necesita:
+        </p>
+        <ul class="flex flex-col gap-1">
+          <li class="font-bold"> - Añadir número de guía</li>
+          <li class="font-bold"> - Seleccionar al remitente</li>
+          <li class="font-bold"> - Seleccionar al destinatario</li>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

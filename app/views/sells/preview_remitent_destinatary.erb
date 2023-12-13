@@ -1,0 +1,66 @@
+<%= turbo_frame_tag 'remitent_destinatary' do %>
+  <div class="flex flex-col gap-5">
+    <h2 class="font-bold text-sidebarTextColor text-lg underline|">Remitente y destinatario seleccionados</h2>
+
+    <div class="flex flex-col gap-5 w-full">
+      <h3 class="font-bold text-sidebarTextColor underline">Remitente</h3>
+      <div class="flex flex-col gap-2 w-full">
+        <div class="flex w-full gap-1">
+          <span class="font-regular text-sidebarTextColor text-sm">Nombre:</span>
+          <span class="font-semibold text-sidebarTextColor text-sm">
+            <%= @destinatary.remitent.name %>
+          </span>
+        </div>
+        <div class="flex w-full gap-1">
+          <span class="font-regular text-sidebarTextColor text-sm">Número de contacto:</span>
+          <span class="font-semibold text-sidebarTextColor text-sm">
+            <%= @destinatary.remitent.phone_number %>
+          </span>
+        </div>
+        <div class="flex flex-col w-full gap-1">
+          <span class="font-regular text-sidebarTextColor text-sm">Dirección:</span>
+          <span class="font-semibold text-sidebarTextColor text-sm">
+            <%= @destinatary.remitent.address %>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5 w-full">
+      <h3 class="font-bold text-sidebarTextColor underline">Destinatario</h3>
+      <div class="flex flex-col gap-2 w-full">
+        <div class="flex w-full gap-1">
+          <span class="font-regular text-sidebarTextColor text-sm">Nombre:</span>
+          <span class="font-semibold text-sidebarTextColor text-sm">
+            <%= @destinatary.full_name %>
+          </span>
+        </div>
+        <div class="flex w-full gap-1">
+          <span class="font-regular text-sidebarTextColor text-sm">Teléfono 1:</span>
+          <span class="font-semibold text-sidebarTextColor text-sm">
+            <%= @destinatary.primary_phone_number %>
+          </span>
+        </div>
+        <div class="flex flex-col w-full gap-1">
+          <% if @destinatary.home? %>
+            <span class="font-regular text-sidebarTextColor text-sm">Dirección:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= @destinatary.full_address %>
+            </span>
+          <% else %>
+            <span class="font-regular text-sidebarTextColor text-sm">Ocurre:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= @destinatary.estafeta_office_address %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-end">
+      <%= button_to update_remitent_destinatary_sell_path(@sell, destinatary_id: @destinatary.id), method: :patch, class: 'btn-success', data: { turbo_frame: '_top' } do %>
+        Aceptar
+      <% end %>
+    </div>
+  </div>
+<% end %>

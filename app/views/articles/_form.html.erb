@@ -1,0 +1,32 @@
+<%= form_with(model: article, class: "flex flex-col w-full h-full justify-between gap-10", id: "article-form") do |form| %>
+  <div class="flex items-start w-full gap-10">
+    <div class="flex flex-col gap-10 w-full">
+      <p class="font-semibold text-sidebarTextColor">Nuevo artículo.</p>
+      <div class="flex flex-col gap-1 w-full items-start">
+        <%= form.label :name, 'Nombre del articulo:', class: 'font-bold mb-1 required' %>
+        <%= form.text_field :name, class: "input-tailwindcss font-semibold #{ error_input_border(article.errors.include?(:name)) }" %>
+        <% if article.errors.include?(:name) %>
+          <%= render 'shared/input_error_msg', { object: article, attribute: :name } %>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col gap-1 w-full items-start">
+        <%= form.label :price, 'Precio (USD):', class: 'font-bold mb-1 required' %>
+        <%= form.number_field :price, step: :any, class: "input-tailwindcss font-semibold #{ error_input_border(article.errors.include?(:price)) }" %>
+        <% if article.errors.include?(:price) %>
+          <%= render 'shared/input_error_msg', { object: article, attribute: :price } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end gap-3">
+    <div class="flex items-center text-sm font-semibold">
+      <%= form.submit btn_title, class: "rounded py-2 px-4 bg-green-500 text-white font-semibold cursor-pointer", data: { turbo_frame: '_top' } %>
+    </div>
+
+    <%= link_to cancel_path, class: "flex text-sm font-semibold rounded bg-danger px-4 py-2 text-white items-center gap-1" do %>
+      <span>Regresar</span>
+    <% end %>
+  </div>
+<% end %>

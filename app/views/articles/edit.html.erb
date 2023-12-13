@@ -1,0 +1,51 @@
+<section class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <h1 class="font-bold text-2xl text-sidebarTextColor">Editar articulo</h1>
+  <% end %>
+
+  <div class="flex flex-col xl:flex-row px-2 sm:px-5 py-5 w-full gap-5">
+    <div class="flex flex-col overflow-y-auto px-2 sm:px-5 py-5 gap-10 bg-white border rounded shadow w-full xl:w-1/2">
+      <%= render 'shared/breadcumb', { path: article_path(@article), path_text: @article.name, text: 'Editar articulo' } %>
+
+      <%= render "form", { article: @article, btn_title: 'Actualizar articulo', cancel_path: article_path(@article) } %>
+    </div>
+
+    <div class="flex flex-col overflow-y-auto px-2 sm:px-5 py-5 gap-10 bg-white border rounded shadow w-full xl:w-1/2" data-controller="article">
+      <div class="flex flex-col gap-1">
+        <h3 class="font-semibold text-sidebarTextColor text-center text-xl">Estimar precio.</h3>
+        <p class="text-sidebarTextColor text-center">Puedes calcular el precio de un artículo dependiendo de las medidas que poseé (ancho, largo y altura).</p>
+      </div>
+      <form id="calculate-price-form" class="flex flex-col w-full gap-10" data-action="submit->article#calculateEstimattedPrice">
+        <div class="flex flex-col gap-1">
+          <label class="font-bold mb-1" for="width">Ancho (in):</label>
+          <input type="number" name="width-input" id="width-input" class="input-tailwindcss font-semibold" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-bold mb-1" for="length">Largo (in):</label>
+          <input type="number" name="length-input" id="length-input" class="input-tailwindcss font-semibold" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label class="font-bold mb-1" for="height">Altura (in):</label>
+          <input type="number" name="height-input" id="height-input" class="input-tailwindcss font-semibold" required>
+        </div>
+
+        <div class="flex items-center justify-end">
+          <button type="submit" class="btn-primary">Calcular</button>
+        </div>
+      </form>
+
+      <div class="flex flex-col items-end text-sidebarTextColor">
+        <p>
+          Volumen calculdado (in):
+          <span class="font-bold" id="volume-value">0.0</span> in3
+        </p>
+        <p>
+          Precio sugerido: $
+          <span class="font-semibold" id="price-value">0.0</span> USD
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,9 @@
+<section class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <h1 class="font-bold text-2xl text-sidebarTextColor"><%= @article.name %></h1>
+  <% end %>
+
+  <div class="flex flex-col overflow-y-auto px-2 sm:px-5 py-5">
+    <%= render 'article', article: @article %>
+  </div>
+</section>

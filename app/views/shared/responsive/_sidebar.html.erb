@@ -1,0 +1,79 @@
+<nav class="flex flex-col lg:hidden items-center justify-center" data-controller="navbar">
+  <i class="fa-solid fa-bars text-xl text-sidebarTextColor" data-action="click->navbar#toggleModal"></i>
+
+  <div class="hidden fixed flex flex-col justify-between bg-white top-0 right-0 h-full w-full z-10" id="responsive_navbar">
+    <div class="flex items-center justify-between bg-slate-100 py-5 px-5 sm:px-10 gap-10">
+      <div class="flex items-center gap-2">
+        <%= image_tag('logo-paqueteria.png', class: 'w-12 h-12') %>
+        <h2 class="text-xl font-bold text-sidebarTextColor">Paquetería Martínez</h2>
+      </div>
+      <div class="flex items-center">
+        <i class="fa-regular fa-circle-xmark text-sidebarTextColor text-2xl" data-action="click->navbar#toggleModal"></i>
+      </div>
+    </div>
+
+    <ul class="h-full flex flex-col">
+      <% if current_user.editor? || current_user.admin? %>
+        <li class="flex items-center w-full border">
+          <%= link_to root_path, class: style_to_sidebar_link(root_path) do %>
+            <div class="flex items-center gap-2 py-2">
+              <i class="fa-solid fa-house"></i>
+              <span>Dashboard</span>
+            </div>
+          <% end %>
+        </li>
+
+        <li class="flex items-center w-full border">
+          <%= link_to departure_dates_path, class: style_to_sidebar_link(departure_dates_path) do %>
+            <i class="fa-solid fa-plane-up"></i>
+            <span>Fechas de salida</span>
+          <% end %>
+        </li>
+
+        <li class="flex items-center w-full border">
+          <%= link_to articles_path, class: style_to_sidebar_link(articles_path) do %>
+            <div class="flex items-center gap-2 py-2">
+              <i class="fa-solid fa-warehouse"></i>
+              <span>Articulos</span>
+            </div>
+          <% end %>
+        </li>
+
+        <li class="flex items-center w-full border">
+          <%= link_to sells_path, class: style_to_sidebar_link(sells_path) do %>
+            <div class="flex items-center gap-2 py-2">
+              <i class="fa-solid fa-truck-fast"></i>
+              <span>Envíos</span>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if current_user.admin? %>
+        <li class="flex items-center w-full border">
+          <%= link_to admin_users_path, class: style_to_sidebar_link(admin_users_path) do %>
+            <div class="flex items-center gap-2 py-2">
+              <i class="fa-solid fa-gear"></i>
+              <span>Administrador</span>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <% if current_user %>
+      <div class="flex flex-col w-full items-center gap-5 py-5">
+        <%= link_to user_path(current_user.token_id), class: 'flex flex-col items-center w-full gap-2' do %>
+          <div class="flex flex-col">
+            <h6 class="font-bold text-sm text-center"><%= current_user.profile.full_name %></h6>
+            <p class="font-medium text-sm text-center"><%= current_user.email %></p>
+          </div>
+        <% end %>
+        <%= button_to logout_path, method: :delete, class: 'btn-danger' do  %>
+          <i class="fa-solid fa-angles-left"></i>
+          <span>Cerrar sesión</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</nav>

@@ -1,0 +1,10 @@
+<div class="flex flex-col w-full mb-5">
+  <div class="text-slate-500">Buscar destinatario:</div>
+  <%= form_with(scope: :destinatary, url: filter_destinataries_path(sell_id: sell.id, remitent_id: remitent.id), id: 'filter_destinataries', class: 'flex items-center w-full gap-3', method: :post) do |form| %>
+    <%= form.hidden_field :remitent_id, value: remitent.id %>
+    <%= form.text_field :full_name, placeholder: 'e.g. María Perez', class: "input-tailwindcss" %>
+    <button class="rounded-full py-2 px-3 bg-primary text-white font-semibold cursor-pointer shadow">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  <% end %>
+</div>

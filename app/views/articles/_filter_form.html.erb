@@ -1,0 +1,39 @@
+<div class="flex flex-col items-end md:items-center md:flex-row lg:hidden justify-between gap-5">
+  <%= render 'search_form' %>
+
+  <%= link_to new_article_path, class: "flex text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2" do %>
+    <span>Añadir articulo</span>
+    <i class="fa-solid fa-plus text-base"></i>
+  <% end %>
+</div>
+
+<%= form_with(model: filter_form, url: filter_articles_path, method: :post, class: 'flex flex-col w-full gap-2', id: 'filter_form') do |f| %>
+  <div class="flex items-center justify-between">
+    <h5 class="font-bold">Filtrar por:</h5>
+
+    <div class="flex items-start justify-end">
+      <button type="submit" class="bg-cyan-500 rounded-lg shadow px-6 py-2 text-white flex items-center gap-2 font-semibold">
+        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        Buscar
+      </button>
+    </div>
+  </div>
+
+  <div class="flex flex-col md:flex-row w-full gap-2">
+    <div class="flex flex-col items-start w-full md:w-6/12 gap-2">
+      <%= f.label :min_price, 'Precio mínimo:', class: 'font-semibold text-sidebarTextColor w-1/2' %>
+      <%= f.number_field :min_price, step: :any, min: 0, class: "input-tailwindcss #{ error_input_border(filter_form.errors.include?(:min_price)) }" %>
+      <% if filter_form.errors.include?(:min_price) %>
+        <%= render 'shared/input_error_msg', { object: filter_form, attribute: :min_price } %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col items-start w-full md:w-6/12 gap-2">
+      <%= f.label :max_price, 'Precio máximo:', class: 'font-semibold text-sidebarTextColor w-1/2' %>
+      <%= f.number_field :max_price, step: :any, min: 0, class: "input-tailwindcss #{ error_input_border(filter_form.errors.include?(:max_price)) }" %>
+      <% if filter_form.errors.include?(:max_price) %>
+        <%= render 'shared/input_error_msg', { object: filter_form, attribute: :max_price } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<%= form_with(model: remitent, url: url, id:'remitent_form', class: 'flex flex-col w-full gap-5') do |form| %>
+  <div class="flex flex-col gap-1 w-full items-start">
+    <%= form.label :name, 'Nombre completo:', class: 'font-bold mb-1 required' %>
+    <%= form.text_field :name, class: "input-tailwindcss font-semibold #{ error_input_border(remitent.errors.include?(:name)) }" %>
+    <% if remitent.errors.include?(:name) %>
+      <%= render 'shared/input_error_msg', { object: remitent, attribute: :name } %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col md:flex-row items-start w-full gap-5">
+    <div class="flex flex-col gap-1 w-full md:w-2/6 items-start">
+      <%= form.label :phone_code, 'Lada:', class: 'font-bold mb-1 required' %>
+      <%= form.select :phone_code, Remitent::AREA_CODE.map { |option| [option.humanize, option] }, { include_blank: true }, { class: "input-tailwindcss font-semibold #{ error_input_border(remitent.errors.include?(:phone_code)) }" } %>
+      <% if remitent.errors.include?(:phone_code) %>
+        <%= render 'shared/input_error_msg', { object: remitent, attribute: :phone_code } %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col gap-1 w-full md:w-4/6 items-start">
+      <%= form.label :phone_number, 'Teléfono (10 digitos):', class: 'font-bold mb-1 required' %>
+      <%= form.text_field :phone_number, maxLength: 10, class: "input-tailwindcss font-semibold #{ error_input_border(remitent.errors.include?(:phone_number)) }" %>
+      <% if remitent.errors.include?(:phone_number) %>
+        <%= render 'shared/input_error_msg', { object: remitent, attribute: :phone_number } %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-1 w-full items-start">
+    <%= form.label :address, 'Dirección:', class: 'font-bold mb-1' %>
+    <%= form.text_field :address, class: "input-tailwindcss font-semibold #{ error_input_border(remitent.errors.include?(:address)) }" %>
+    <% if remitent.errors.include?(:address) %>
+      <%= render 'shared/input_error_msg', { object: remitent, attribute: :address } %>
+    <% end %>
+  </div>
+
+  <div class="flex items-center justify-end gap-3 mt-5">
+    <%= form.submit 'Guardar', class: "rounded py-2 px-4 bg-green-500 text-white font-semibold cursor-pointer", data: { turbo_frame: '_top' } %>
+  </div>
+<% end %>

@@ -1,0 +1,61 @@
+<div class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <%= link_to root_path, class: 'flex items-center' do %>
+      <h1 class="font-bold text-2xl text-sidebarTextColor">Dashboard</h1>
+    <% end %>
+  <% end %>
+
+  <% if current_user.viewer? %>
+    <%= render 'pages/dashboard/viewer' %>
+  <% else %>
+    <div class="flex flex-col w-full px-2 py-5 sm:px-5 gap-5 border h-full">
+      <div class="flex flex-col items-center justify-center gap-5">
+        <%= render 'pages/dashboard/card', { title: 'Ganancias', text: "$ #{number_with_delimiter(@revenue, :delimiter => ',')} USD" } do %>
+          <i class="fa-solid fa-money-bill text-2xl"></i>
+        <% end %>
+        <%= render 'pages/dashboard/card', { title: 'Envíos', text: @sells.length } do %>
+          <i class="fa-solid fa-truck-fast text-2xl"></i>
+        <% end %>
+        <%= render 'pages/dashboard/card', { title: 'Artículos', text: @articles.length } do %>
+          <i class="fa-solid fa-boxes-stacked text-2xl"></i>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col xl:flex-row w-full gap-5">
+        <div class="flex flex-col w-full xl:w-1/2 px-2 py-5 sm:px-5 rounded bg-white shadow border gap-0 sm:gap-5">
+          <h5 class="mb-2 sm:mb-0 font-bold text-lg text-sidebarTextColor">Últimos articulos añadidos</h5>
+          <div class="flex w-full bg-gray-100 rounded">
+            <div class="w-8/12 sm:w-6/12 text-sidebarTextColor text-sm sm:text-base font-bold">Nombre</div>
+            <div class="hidden sm:flex w-3/12 text-sidebarTextColor text-sm sm:text-base font-bold">Precio unitario</div>
+            <div class="w-4/12 sm:w-3/12 text-sidebarTextColor text-sm sm:text-base font-bold text-center">Envíos por pieza</div>
+          </div>
+          <div class="flex flex-col w-full gap-1">
+            <% @articles.order(created_at: :desc).limit(5).each do |article| %>
+              <div class="flex items-center w-full border-b py-1">
+                <div class="w-8/12 sm:w-6/12 text-sidebarTextColor font-semibold text-xs sm:text-sm"><%= article.name %></div>
+                <div class="hidden sm:flex w-3/12 text-sidebarTextColor font-semibold text-xs sm:text-sm">$ <%= number_with_delimiter(article.price.round(2), :delimiter => ',') %> USD</div>
+                <div class="w-4/12 sm:w-3/12 text-sidebarTextColor font-semibold text-xs sm:text-sm text-center"><%= article.article_sells.sum(:quantity) %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="flex flex-col w-full xl:w-1/2 px-2 py-5 sm:px-5 rounded bg-white shadow border gap-0 sm:gap-5">
+          <h5 class="mb-2 sm:mb-0 font-bold text-lg text-sidebarTextColor">Envíos más recientes</h5>
+          <div class="flex w-full bg-gray-100 rounded">
+            <div class="w-6/12 text-sidebarTextColor font-bold text-sm sm:text-base">No. de envío</div>
+            <div class="w-6/12 text-sidebarTextColor font-bold text-sm sm:text-base">Fecha de salida</div>
+          </div>
+          <div class="flex flex-col w-full gap-1">
+            <% @sells.order(created_at: :desc).limit(5).each do |sell| %>
+              <div class="flex items-center w-full border-b py-1">
+                <div class="w-6/12 text-sidebarTextColor font-semibold text-xs sm:text-sm"><%= sell.shipment_number_text %></div>
+                <div class="w-6/12 text-sidebarTextColor font-semibold text-xs sm:text-sm"><%= I18n.l(sell.departure_date.date.to_time, format: :long) %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

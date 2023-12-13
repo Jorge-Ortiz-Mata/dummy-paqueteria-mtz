@@ -1,0 +1,126 @@
+<div class="flex flex-col w-full gap-5 border shadow p-5 bg-white rounded justify-between">
+  <div class="flex items-center justify-between">
+    <%= render 'shared/breadcumb', { path: sells_path, path_text: 'Envíos', text: "Envío No. #{sell.shipment_number_text}" } %>
+    <%#= button_to sell_path(@sell), method: :delete, form: { data: { turbo_confirm: 'Estas seguro de eliminar este envío?' } }, class: "text-lg font-semibold gap-2 flex items-center text-danger hover:text-red-800 duration-300" do %>
+      <%# <i class="fa-solid fa-trash"></i> %>
+    <%# end %>
+  </div>
+
+  <div class="flex flex-col w-full gap-5">
+    <div class="flex flex-col lg:flex-row w-full gap-5">
+      <div class="flex flex-col w-full lg:w-1/2 gap-5 sm:gap-1">
+        <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+          <span class="font-regular text-sm sm:text-base text-sidebarTextColor">Servicio de mensajería:</span>
+          <span class="font-semibold text-sm lg:text-base"><%= sell.carrier_name_text %></span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+          <span class="font-regular text-sm sm:text-base text-sidebarTextColor">Guía de rastreo:</span>
+          <span class="font-semibold text-sm lg:text-base"><%= sell.tracking_guide_text %></span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center underline">
+          <span class="font-regular text-sm sm:text-base text-sidebarTextColor">Fecha:</span>
+          <span class="font-semibold text-sm lg:text-base"><%= I18n.l(sell.created_at.to_time, format: :long) %></span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2 items-start sm:items-center underline">
+          <span class="font-regular text-sm sm:text-base text-sidebarTextColor">Fecha de salida:</span>
+          <span class="font-semibold text-sm lg:text-base"><%= I18n.l(sell.departure_date.date.to_time, format: :long) %></span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 items-start w-full lg:w-1/2">
+        <span class="font-semibold text-sm sm:text-base text-sidebarTextColor">Descripción del envío:</span>
+        <span class="text-sm text-sidebarTextColor"><%= sell.description %></span>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row w-full gap-5">
+      <div class="flex flex-col gap-5 w-1/2">
+        <h3 class="font-bold text-sidebarTextColor text-lg underline">Remitente</h3>
+        <div class="flex flex-col gap-2 w-full">
+          <div class="flex w-full gap-1">
+            <span class="font-regular text-sidebarTextColor text-sm">Nombre:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= sell.remitent_name %>
+            </span>
+          </div>
+          <div class="flex w-full gap-1">
+            <span class="font-regular text-sidebarTextColor text-sm">Número de contacto:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= sell.remitent_phone_number %>
+            </span>
+          </div>
+          <div class="flex flex-col w-full gap-1">
+            <span class="font-regular text-sidebarTextColor text-sm">Dirección:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= sell.remitent_address %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-5 w-1/2">
+        <h3 class="font-bold text-sidebarTextColor text-lg underline">Destinatario</h3>
+        <div class="flex flex-col gap-2 w-full">
+          <div class="flex w-full gap-1">
+            <span class="font-regular text-sidebarTextColor text-sm">Nombre:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= sell.destinatary_full_name %>
+            </span>
+          </div>
+          <div class="flex w-full gap-1">
+            <span class="font-regular text-sidebarTextColor text-sm">Teléfono 1:</span>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= sell.destinatary_primary_phone_number %>
+            </span>
+          </div>
+          <div class="flex flex-col w-full gap-1">
+            <% if sell.destinatary && sell.destinatary.home? %>
+              <span class="font-regular text-sidebarTextColor text-sm">Dirección:</span>
+            <% else %>
+              <span class="font-regular text-sidebarTextColor text-sm">Ocurre:</span>
+            <% end %>
+            <span class="font-semibold text-sidebarTextColor text-sm">
+              <%= sell.destinatary_deliver_place %>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col border w-full lg:w-80 shadow p-5 bg-white rounded justify-between">
+  <div class="flex flex-col gap-3">
+    <%= link_to export_pdf_sell_path(@sell, format: :pdf), method: :post, class: 'flex items-center justify-center btn-primary', target: "_blank" do %>
+      <i class="fa-regular fa-newspaper"></i>
+      <span>Imprimir recibo</span>
+    <% end %>
+    <%= link_to edit_sell_path(@sell), data: { turbo_frame: 'edit_sell' }, class: "flex items-center justify-center btn-primary bg-purple-500 hover:bg-purple-600" do %>
+      <i class="fa-solid fa-pen-to-square"></i>
+      <span>Añadir descripción</span>
+    <% end %>
+    <%= link_to remitent_destinatary_sell_path(sell), class: 'flex items-center justify-center btn-warning' do %>
+      <i class="fa-solid fa-envelope text-base"></i>
+      <span>Destinatarios</span>
+    <% end %>
+    <%= link_to edit_estafeta_info_sell_path(sell), data: { turbo_frame: 'estafeta' }, class: 'flex items-center justify-center btn-primary bg-red-600 hover:bg-red-700 rounded shadow text-white' do %>
+      <i class="fa-solid fa-truck-fast"></i>
+      <span>Transporte</span>
+    <% end %>
+    <%= link_to whatsapp_sell_path(sell), class: 'flex items-center justify-center btn-success', data: { turbo_frame: 'whatsapp' } do %>
+      <i class="fa-brands fa-whatsapp text-lg"></i>
+      <span>Whatsapp</span>
+    <% end %>
+  </div>
+  <div class="flex flex-col gap-3">
+    <% if sell.shipment_number.zero? %>
+      <%= button_to shipment_number_sell_path(sell), class: 'flex items-center justify-center btn-success w-full bg-emerald-700 hover:bg-emerald-800', method: :patch do %>
+        <i class="fa-regular fa-floppy-disk"></i>
+        <span>Guardar venta</span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

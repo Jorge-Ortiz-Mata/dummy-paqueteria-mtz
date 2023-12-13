@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF - Envío: <%= @sell.shipment_number_text %> </title>
+  <style>
+    * {
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .articles-table th {
+      font-size: 0.9rem;
+      background-color: #DAFFFB;
+    }
+
+    .articles-table tr td {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .articles-table th, .total-table tr {
+      text-align: start;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header class="header-section">
+      <table style="width: 100%;">
+        <tr>
+          <th style="width: 50%; text-align: left;"></th>
+          <th style="width: 50%; text-align: right;"></th>
+        </tr>
+
+        <tr>
+          <td style="width: 50%;">
+            <div><%= image_tag(image_url('logo-paqueteria.png'), width: '150', height: '150') %></div>
+          </td>
+          <td style="width: 50%; text-align: right; color: #04364A;">
+            <h1 style="font-size: 1.7rem; font-weight: 700; color: #04364A;">
+              Paquetería Martínez
+            </h1>
+            Servicio de Paquetería <br>
+            Dirección: 5016 Nolensville Pike Nashville TN 37211 <br>
+            Tel: (615) 579 2454 <br>
+            Tel: (615) 569 1264 <br>
+          </td>
+        </tr>
+      </table>
+    </header> <br> <br>
+
+    <!-- -->
+    <div style="color: #04364A; font-size: 14px;">
+      <h3>Información del envío</h3> <br>
+      <strong style="font-size: 25px;">Envio No. <%= @sell.shipment_number_text %></strong><br>
+      <strong style="font-size: 15px;">Fecha: </strong><%= I18n.l(@sell.created_at.to_time, format: :long) %><br>
+      <strong style="font-size: 15px;">Guía de rastreo: </strong><%= @sell.tracking_guide_text %><br>
+      <strong style="font-size: 15px;">Descripción:</strong><br>
+      <%= @sell.description_text %>
+    </div>
+
+    <!-- -->
+    <table style="width:100%; color: #04364A;">
+      <tr>
+        <th style="width: 60%;"></th>
+        <th style="width: 40%; text-align: right; font-size: 17px; font-weight: 500;">
+          Servicio de mensajería: <strong> <%= @sell.carrier_name_text %> </strong>
+        </th>
+      </tr>
+    </table>
+
+    <!--  -->
+    <table style="width:100%; margin-bottom: 15px; color: #04364A; font-size: 13.5px; border: 1px solid #cbd5e1">
+      <tr style="">
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><h3>Remitente</h3></td>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1;"><h3>Destinatario</h3></td>
+      </tr>
+      <tr>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span>Nombre: </span><strong><%= @sell.remitent_name %></strong></td>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1;"><span>Nombre: </span><strong><%= @sell.destinatary_full_name %></strong></td>
+      </tr>
+      <tr>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span>Teléfono: </span><strong><%= @sell.remitent_phone_number %></strong></td>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1;"><span>Teléfono 1: </span><strong><%= @sell.destinatary_primary_phone_number %></strong></td>
+      </tr>
+      <tr>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span>Dirección: <%= @sell.remitent_address %></span></td>
+        <td style="width: 50%; border-bottom: 1px solid #cbd5e1;"><span>Teléfono 2: </span><strong><%= @sell.destinatary_secondary_phone_number %></strong></td>
+      </tr>
+      <% if @sell.destinatary && @sell.destinatary.home? %>
+        <tr>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1;">Calle: <strong><%= @sell.destinatary_street %></strong></td>
+        </tr>
+        <tr>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1;">No. ext: <strong><%= @sell.destinatary_ext_number %></strong></td>
+        </tr>
+        <tr>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1;">Colonia: <strong><%= @sell.destinatary_neighborhood %></strong></td>
+        </tr>
+        <tr>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1;">Ciudad: <strong><%= @sell.destinatary_city %></strong></td>
+        </tr>
+        <tr>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%; border-bottom: 1px solid #cbd5e1;">Estado: <strong><%= @sell.destinatary_state %></strong></td>
+        </tr>
+        <tr>
+          <td style="width: 50%; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%;">Código Postal: <strong><%= @sell.destinatary_zip_code %></strong></td>
+        </tr>
+      <% else %>
+        <tr>
+          <td style="width: 50%; border-right: 1px solid #cbd5e1;"><span></span></td>
+          <td style="width: 50%;">Ocurre: <br><strong><%= @sell.destinatary_deliver_place %></strong></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <table class="articles-table" style="width:100%; color: #04364A;">
+      <tr>
+        <th style="width: 15%; padding: 10px;">Nombre</th>
+        <th style="width: 15%; padding: 10px; text-align: center;">Precio unitario</th>
+        <th style="width: 20%; padding: 10px; text-align: center;">Precio especial</th>
+        <th style="width: 10%; padding: 10px; text-align: center;">Cantidad</th>
+        <th style="width: 10%; padding: 10px; text-align: center;">Articulos asegurados</th>
+        <th style="width: 15%; padding: 10px; text-align: center;">Aseguranza</th>
+        <th style="width: 15%; padding: 10px; text-align: center;">Importe</th>
+      </tr>
+      <% @sell.article_sells.order(created_at: :asc).each do |article_sell| %>
+        <%= render 'sells/pdf/row', article_sell: article_sell %>
+      <% end %>
+    </table> <hr>
+
+      <!--  -->
+
+    <table class="total-table" style="width: 100%; color: #04364A;">
+      <tr>
+      </tr>
+      <tr>
+        <td style="padding: 10px; width: 15%; text-align: right; font-weight: 500;"></td>
+        <td style="padding: 10px; width: 15%; text-align: right; font-weight: 500;"></td>
+        <td style="padding: 10px; width: 17%; text-align: right; font-weight: 500;">Total:</td>
+        <td style="padding: 10px; width: 10%; text-align: center; font-weight: 500;">
+          <%= number_with_delimiter(@sell.article_sells.sum(:quantity).round(2), :delimiter => ',') %> pz
+        </td>
+        <td style="padding: 10px; width: 40%; font-weight: 500; text-align: right;">
+          $ <%= number_with_delimiter(@sell.article_sells.sum(:revenue).round(2), :delimiter => ',') %> USD
+        </td>
+      </tr>
+    </table> <br>
+
+    <!--  -->
+
+    <p style="text-align: center; color: #04364A;">
+      <strong style="text-decoration: underline;">__________________________________________</strong> <br> <br>
+      <span>
+        Soy responsable ante las autoridades de no llevar armas, dinero ni cartuchos. <br>
+        Firma del cliente
+      </span>
+    </p>
+
+    <!--  -->
+
+    <p style="font-size: 20px; text-align: center; color: #04364A;">
+      Fecha de salida: <strong> <%= I18n.l(@sell.departure_date.date.to_time, format: :long) %> </strong> <br>
+    </p> <br>
+
+    <!-- -->
+
+    <section style="font-size: 9.5px; text-align: justify; color: #04364A;">
+      <h4 style="font-size: 12px;">Terminos y condiciones</h4>
+      <strong>
+        Acuerdo de Términos:
+      </strong>
+      Adjunto el contrato con los términos y condiciones de PAQUETERIA MARTINEZ para el servicio terreste que será proporcionado hacia México. Estos
+      términos están sujetos a cambios sin aviso previo. Al darnos tu paquete para entregar a tu destino, aceptas todos los términos y condiciones en este formulario, así como los
+      términos y condiciones de una tercera organización envuelta en el proceso de entrega. <br>
+
+      <strong>
+        Empaque Adecuado y Completar al Formulario de Declaración:
+      </strong>
+      El cliente es responsable de empacar adecuadamente sus pertenencias y de completar el formulario de
+      PAQUETERIA MARTINEZ, si el cliente esta proporcionado la información necesaria para completar este formulario de envío a un representante de servicio al cliente, usted es
+      responsable de proporcionar la información correcta, si se emite el número total de bultos y/o en peso por paquete, nuestra facturación será basada en nuestra mejor estimación
+      sobre el número de paquetes y/o peso determinado por nosotros, debes entregar una lista detallando completamente todos los artículos en las caja(s) que serán enviadas. <br>
+
+      <strong>
+        Responsabilidad de Pago:
+      </strong>
+      El remitente es el principal responsable de todos los gastos de envío y en dado caso, si la devolución de tu paquete es requerida, también tendrás
+      que pagar por los gastos involucrados en la devolución. PAQUETERIA MARTINEZ requiere el pago completo a la hora de recoger. <br>
+
+      <strong>
+        Restricciones a Nuestras Responsabilidades:
+      </strong>
+      Daños ocurridos en el paquete por empaque inadecuado y/o insuente. Por la pérdida o daño de artículos prohibidos. Por la
+      pérdida parcial daño o retraso causado por hechos o situaciones que no podamos controlar, pero no limitadas a las condiciones meteorológicas, huelgas, asaltos, actos
+      gubernamentales, atrasos aduanales, dias de esta o fallos mecánicos en su paquete. <br>
+
+      <strong>
+        Tiempo de Entrega:
+      </strong>
+      El tiempo de entrega de PAQUETERIA MARTINEZ es de quince a veinte días hábiles. <br>
+
+      <strong>
+        Artículos Prohibidos:
+      </strong>
+      El remitente declara que no está enviando dinero en efectivo, explosivos, armas, joyas, químicos, y/o mercancía comercial no declara. <br>
+
+      <strong>
+        En caso de Pérdida total de paquete:
+      </strong>
+      PAQUETERIA MARTINEZ le reembolsará el 20% de el valor del monto declarado por el cliente (Maximo $1000), y quedará como crédito
+      para un próximo envío. <br>
+    </section>
+
+    <!--  -->
+  </main>
+</body>
+</html>

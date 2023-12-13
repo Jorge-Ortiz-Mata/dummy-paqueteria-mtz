@@ -1,0 +1,5 @@
+<%= turbo_frame_tag 'admin_new_user', class:"flex flex-col w-full" do %>
+  <%= render 'shared/modal', { title: 'Nuevo usuario' } do %>
+    <%= render 'admin/users/forms/new_user', user: @user %>
+  <% end %>
+<% end %>

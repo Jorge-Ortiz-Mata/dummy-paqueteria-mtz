@@ -1,0 +1,31 @@
+<div class="flex flex-col overflow-y-auto px-2 py-5 sm:px-5 gap-10 bg-white border rounded shadow" id="sells">
+  <div class="flex w-full items-center justify-between">
+    <div class="flex items-center gap-1 text-sidebarTextColor text-base">
+      <span>Envíos para la fecha de salida del:</span>
+      <span class="font-bold"><%= I18n.l(@departure_date.date.to_time, format: :long) %></span>
+    </div>
+    <%= link_to new_sell_path, class: "flex lg:hidden text-xs sm:text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2", data: { turbo_frame: 'new_sell' } do %>
+      <span>Añadir envío</span>
+      <i class="fa-solid fa-plus text-base"></i>
+    <% end %>
+  </div>
+  <%= render 'sells/responsive/sells', { sells: sells } %>
+
+  <div class="hidden md:flex flex-col w-full gap-2">
+    <div class="flex w-full bg-gray-100 rounded">
+      <div class="w-2/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">No. envío</div>
+      <div class="w-5/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">Creación del envío</div>
+      <div class="w-5/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">No. de artículos</div>
+    </div>
+
+    <div class="flex flex-col w-full">
+      <% sells.each do |sell| %>
+        <%= link_to sell_path(sell), class: 'flex items-center w-full hover:bg-gray-100 p-1 duration-300 border-b' do %>
+          <div class="font-semibold text-xs lg:text-sm text-sidebarTextColor p-1 w-2/12"><%= sell.shipment_number_text %></div>
+          <div class="font-semibold text-xs lg:text-sm text-sidebarTextColor p-1 w-5/12"><%= I18n.l(sell.created_at.to_time, format: :long) %></div>
+          <div class="font-semibold text-xs lg:text-sm text-sidebarTextColor p-1 w-5/12"><%= sell.articles.length %></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

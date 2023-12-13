@@ -1,0 +1,11 @@
+<main>
+  <h1>Recuperación de contraseña - Paquetería Martínez</h1>
+  <p>
+    Has solicitado la recuperación de tu contraseña en la página de Paquetería Martínez.
+    Si crees que esto es un error, por favor, ignora este mensaje. <br>
+    De no ser así, por favor, da click en el siguiente enlace para poder restablecer tu contraseña
+  </p>
+  <div>
+    <a href="<%= @domain %>/reset/password/form/<%= @user.recover_password_token %>">Recuperar mi contraseña</a>
+  </div>
+</main>

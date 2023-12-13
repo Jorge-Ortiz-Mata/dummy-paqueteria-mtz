@@ -1,0 +1,5 @@
+<%= turbo_frame_tag 'edit_departure_date' do %>
+  <%= render 'shared/modal', { title: "Editar fecha de salida: #{I18n.l(@departure_date.date.to_time, format: :long)}" } do %>
+    <%= render 'form', { departure_date: @departure_date, id: 'edit_departure_date_form' } %>
+  <% end %>
+<% end %>

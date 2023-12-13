@@ -1,0 +1,30 @@
+<div id="destinataries_all" class="flex flex-col w-full overflow-auto max-h-[500px]">
+  <%= render 'search_form', { sell: sell, remitent: remitent } %>
+
+  <% if destinataries.any? %>
+    <div class="flex w-full bg-gray-100 rounded">
+      <div class="w-5/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">Nombre</div>
+      <div class="w-5/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor">Número de teléfono</div>
+      <div class="w-2/12 p-1 text-xs md:text-sm font-bold text-sidebarTextColor text-center">Editar</div>
+    </div>
+    <div class="flex flex-col w-full">
+      <% destinataries.each do |destinatary| %>
+        <div class="flex items-center hover:bg-gray-100 p-1 duration-300 border-b w-full">
+          <%= link_to preview_remitent_destinatary_sell_path(sell, destinatary_id: destinatary.id), class: 'font-regular text-xs lg:text-sm text-sidebarTextColor p-1 w-5/12 underline duration-300 hover:text-primary', data: { turbo_frame: 'remitent_destinatary' } do %>
+            <%= destinatary.full_name %>
+          <% end %>
+          <div class="font-regular text-xs lg:text-sm text-sidebarTextColor p-1 w-5/12">
+            <%= destinatary.primary_phone_number %>
+          </div>
+          <div class="text-xs lg:text-sm text-sidebarTextColor p-1 w-2/12 items-center justify-center flex">
+            <%= link_to edit_remitent_destinatary_path(remitent, destinatary, sell_id: sell.id), data: { turbo_frame: 'remitent_destinatary' }, class: "text-lg font-semibold gap-2 flex items-center text-primary hover:text-cyan-800 duration-300" do %>
+              <i class="fa-solid fa-pen-to-square"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-sm sm:text-base text-sidebarTextColor">Sin resultados</p>
+  <% end %>
+</div>

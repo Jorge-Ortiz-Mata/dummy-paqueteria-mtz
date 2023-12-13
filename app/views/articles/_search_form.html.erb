@@ -1,0 +1,11 @@
+<div class="flex items-center gap-5">
+  <%= form_with(url: search_by_name_articles_path, class: 'flex flex-col') do |f| %>
+    <div class="flex items-center relative gap-2">
+      <%= f.label :name, 'Buscar articulo:', class: 'font-semibold' %>
+      <%= f.text_field :name, class: 'w-[250px] input-tailwindcss', required: true, placeholder: 'e.g. Iphone 14' %>
+      <button class="absolute right-2">
+        <i class="fa-solid fa-magnifying-glass text-sidebarTextColor"></i>
+      </button>
+    </div>
+  <% end %>
+</div>

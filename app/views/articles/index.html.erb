@@ -1,0 +1,38 @@
+<section class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <%= link_to articles_path, class: 'flex items-center' do %>
+      <h1 class="font-bold text-2xl text-sidebarTextColor">Articulos</h1>
+    <% end %>
+
+    <div class="hidden lg:flex items-center gap-5">
+      <%#= render 'search_form' %>
+
+      <%= link_to new_article_path, class: "flex text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2" do %>
+        <span>Añadir articulo</span>
+        <i class="fa-solid fa-plus text-base"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @articles.any? %>
+    <div class="flex flex-col overflow-y-auto py-5 px-2 sm:px-5 gap-5">
+      <%= render 'articles', { articles: @articles, filter_form: @filter_form } %>
+    </div>
+  <% else %>
+    <div class="flex flex-col p-5 rounded shadow border w-full h-full items-center justify-center gap-10">
+      <i class="fa-solid fa-warehouse text-[120px] md:text-[190px] text-sidebarTextColor"></i>
+      <div class="flex flex-col gap-2">
+        <h5 class="font-semibold text-lg text-sidebarTextColor text-center">Ningún articulo en existencia.</h5>
+        <p class="text-sidebarTextColor text-center">
+          Actualmente no cuentas con ningún artículo en existencia.
+        </p>
+        <div class="flex items-center justify-center">
+          <%= link_to new_article_path, class: "flex lg:hidden text-sm font-bold rounded bg-success px-4 py-2 text-white items-center gap-2" do %>
+            <span>Añadir articulo</span>
+            <i class="fa-solid fa-plus text-base"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>

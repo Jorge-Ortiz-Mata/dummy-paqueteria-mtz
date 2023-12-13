@@ -1,0 +1,27 @@
+<main class="flex w-full flex-col justify-center items-center">
+  <section class="flex flex-col py-10 px-5 sm:px-10 rounded shadow border gap-5 w-11/12 sm:w-8/12 lg:w-6/12 xl:w-5/12">
+    <div class="flex items-center justify-center">
+      <%= image_tag('logo-paqueteria.png', class: 'w-28 h-28 md:w-40 md:h-40') %>
+    </div>
+    <h2 class="font-semibold text-3xl sm:text-4xl text-center">Recuperar contraseña</h2>
+
+    <%= form_with(model: @recover_password, url: reset_password_path, method: :post, class: 'flex flex-col w-full', data: { turbo: false }) do |f| %>
+      <div class="flex flex-col w-full items-start">
+        <%= f.label :email, 'Correo electrónico:', class: 'font-bold' %>
+        <%= f.email_field :email, class: "input-tailwindcss font-semibold #{ error_input_border(@recover_password.errors.include?(:email)) }" %>
+        <% if @recover_password.errors.include?(:email) %>
+          <%= render 'shared/input_error_msg', { object: @recover_password, attribute: :email } %>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col w-full items-center mt-10">
+        <%= f.submit "Recuperar contraseña", class: 'text-white py-3 rounded-lg shadow bg-black duration-300 hover:bg-gray-700 cursor-pointer font-semibold w-full text-center' %>
+      </div>
+    <% end %>
+
+    <footer class="flex flex-col w-full gap-2">
+      <p class="text-center text-sm text-sidebarTextColor">Ya tienes una cuenta? Da click en el siguiente enlace para iniciar sesión</p>
+      <%= link_to 'Iniciar sesión', login_path, class: 'text-sidebarTextColor underline font-semibold text-sm text-center duration-300 hover:text-cyan-500' %>
+    </footer>
+  </section>
+</main>

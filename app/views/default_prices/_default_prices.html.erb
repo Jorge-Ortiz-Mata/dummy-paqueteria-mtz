@@ -1,0 +1,30 @@
+<div class="flex flex-col border rounded shadow px:2 sm:px-5 py-5 w-full gap-5 bg-white">
+  <h3 class="font-bold text-sidebarTextColor text-xl"><%= title %></h3>
+
+  <div class="flex flex-col gap-2">
+    <div class="flex w-full">
+      <div class="w-1/6 flex items-center justify-center font-semibold text-sidebarTextColor text-sm bg-slate-100 p-1">Ancho</div>
+      <div class="w-1/6 flex items-center justify-center font-semibold text-sidebarTextColor text-sm bg-slate-100 p-1">Largo</div>
+      <div class="w-1/6 flex items-center justify-center font-semibold text-sidebarTextColor text-sm bg-slate-100 p-1">Altura</div>
+      <div class="w-1/6 flex items-center justify-center font-semibold text-sidebarTextColor text-sm bg-slate-100 p-1">Volumen</div>
+      <div class="w-1/6 flex items-center justify-center font-semibold text-sidebarTextColor text-sm bg-slate-100 p-1">Precio</div>
+      <div class="w-1/6 flex items-center justify-center font-semibold text-sidebarTextColor text-sm bg-slate-100 p-1">Opciones</div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <% default_prices.each do |default_price| %>
+        <div class="flex items-center border-b border-slate-200 py-1">
+          <div class="w-1/6 flex justify-center items-center font-medium text-sm text-sidebarTextColor"><%= default_price.width %></div>
+          <div class="w-1/6 flex justify-center items-center font-medium text-sm text-sidebarTextColor"><%= default_price.length %></div>
+          <div class="w-1/6 flex justify-center items-center font-medium text-sm text-sidebarTextColor"><%= default_price.height %></div>
+          <div class="w-1/6 flex justify-center items-center font-medium text-sm text-sidebarTextColor"><%= number_with_delimiter(default_price.volume.round(2), :delimiter => ',') %> in3</div>
+          <div class="w-1/6 flex justify-center items-center font-medium text-sm text-sidebarTextColor">$<%= number_with_delimiter(default_price.price.round(2), :delimiter => ',') %> USD</div>
+          <div class="w-1/6 flex justify-center items-center font-medium text-sm text-sidebarTextColor">
+            <%= link_to edit_default_price_path(default_price) do %>
+              <span class="font-medium underline duration-300 hover:text-primary">Editar</span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

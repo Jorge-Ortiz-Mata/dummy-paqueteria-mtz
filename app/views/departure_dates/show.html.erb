@@ -1,0 +1,40 @@
+<%= turbo_frame_tag 'edit_departure_date' %>
+
+<section class="flex flex-col h-full w-full">
+
+  <%= render 'shared/navbar' do %>
+    <%= link_to departure_dates_path, class: 'flex items-center' do %>
+      <h1 class="font-bold text-2xl text-sidebarTextColor">Fecha de salida: <%= I18n.l(@departure_date.date.to_time, format: :long) %></h1>
+
+      <%= link_to edit_departure_date_path(@departure_date), class: 'btn-primary flex items-center gap-2', data: { turbo_frame: 'edit_departure_date' } do %>
+        <i class="fa-solid fa-plane-up"></i>
+        Editar fecha de salida
+      <% end %>
+    <% end %>
+  <% end %>
+
+
+  <% if @departure_date.sells.any? %>
+    <div class="flex flex-col w-full px-2 sm:px-5 py-5 gap-5">
+      <div class="flex flex-col w-full bg-white rounded shadow px-2 sm:px-5 py-5">
+        <div class="flex items-center justify-end gap-5">
+          <%= link_to export_csv_departure_date_path(@departure_date, format: :csv), class: 'btn-success flex items-center gap-2' do %>
+            <i class="fa-regular fa-file-lines"></i>
+            Exportar en excel
+          <% end %>
+        </div>
+      </div>
+      <%= render 'sells/sells', { sells: @departure_date.sells.order(shipment_number: :desc) } %>
+    </div>
+  <% else %>
+    <div class="flex flex-col py-5 px-2 sm:px-5 rounded shadow border w-full h-full items-center justify-center gap-10">
+      <i class="fa-solid fa-truck-fast text-[120px] sm:text-[190px] text-sidebarTextColor"></i>
+      <div class="flex flex-col gap-2">
+        <h5 class="font-semibold text-lg text-sidebarTextColor text-center">Sin envíos.</h5>
+        <p class="text-sidebarTextColor text-center">
+          Actualmente no tienes registrado ningún envío.
+        </p>
+      </div>
+    </div>
+  <% end %>
+</section>

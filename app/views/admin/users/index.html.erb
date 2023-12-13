@@ -1,0 +1,28 @@
+<%= turbo_frame_tag 'admin_new_user' %>
+<%= turbo_frame_tag 'admin_edit_user' %>
+
+<section class="flex flex-col h-full w-full">
+  <%= render 'shared/navbar' do %>
+    <%= link_to sells_path, class: 'flex items-center' do %>
+      <h1 class="font-bold text-2xl text-sidebarTextColor">Administrador</h1>
+    <% end %>
+
+    <%= link_to new_admin_user_path, class: 'hidden lg:flex items-center btn-success', data: { turbo_frame: 'admin_new_user' } do %>
+      <span>Añadir nuevo empleado</span>
+      <i class="fa-solid fa-plus text-base"></i>
+    <% end %>
+  <% end %>
+
+  <div class="flex flex-col px-2 py-5 sm:px-5">
+    <div class="flex flex-col w-full bg-white rounded shadow border px-2 py-5 sm:px-5 gap-5">
+      <div class="flex items-center justify-end">
+        <%= link_to new_admin_user_path, class: 'flex lg:hidden items-center btn-success', data: { turbo_frame: 'admin_new_user' } do %>
+          <span>Añadir nuevo empleado</span>
+          <i class="fa-solid fa-plus text-base"></i>
+        <% end %>
+      </div>
+      <h3 class="font-semibold text-sidebarTextColor text-xl text-end lg:text-start">Todos los empleados</h3>
+      <%= render 'users' %>
+    </div>
+  </div>
+</section>

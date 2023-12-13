@@ -1,0 +1,171 @@
+en:
+  date:
+    day_names:
+      - Domingo
+      - Lunes
+      - Martes
+      - Miércoles
+      - Jueves
+      - Viernes
+      - Sábado
+    month_names:
+      -
+      - Enero
+      - Febrero
+      - Marzo
+      - Abril
+      - Mayo
+      - Junio
+      - Julio
+      - Agosto
+      - Septiembre
+      - Octubre
+      - Noviembre
+      - Diciembre
+  time:
+    formats:
+      long: '%A, %B %d, %Y'
+      short: '%b %d, %Y'
+
+  activemodel:
+    attributes:
+      filter_form:
+        min_price: El precio mínimo
+        max_price: El precio máximo
+      sells_filter:
+        article_id: El articulo
+        date_min: La fecha inicial
+        date_max: La fecha final
+        quantity: La cantidad
+      session_form:
+        email: El correo electrónico
+        password: La contraseña
+      update_account:
+        email: El correo electrónico
+        password: La nueva contraseña
+        password_confirmation: La confirmación de la nueva contraseña
+        old_password: La contraseña actual
+      recover_password:
+        email: El correo electrónico
+      password_reset:
+        password: La contraseña
+        password_confirmation: La confirmación de la contraseña
+      admin/create_user:
+        email: El correo electrónico
+        password: La contraseña
+        first_name: El nombre
+        last_name: Los apellidos
+        phone_number: El número de teléfono
+        role: El role
+      admin/update_account:
+        email: El correo electrónico
+        password: La contraseña
+        role: El rol
+      admin/update_profile:
+        first_name: El nombre
+        last_name: Los apellidos
+        phone_number: El número de teléfono
+      sells/estafeta_form:
+        tracking_guide: La guía de rastreo
+        carrier_name: El servicio de mensajería
+
+    errors:
+      models:
+        filter_form:
+          price_is_less_than_min_price: 'no debe ser menor al precio mínimo'
+        sells_filter:
+          does_not_exist: 'no esta registrado en el inventario de los articulos'
+          less_than_date_min: 'es menor a la fecha inicial colocada'
+          positive_numbers: 'no puede ser un numero negativo'
+          more_than_today: 'es mayor a la fecha actual'
+        session_form:
+          user_nil: 'no está asociado a ningun usuario de la aplicación'
+          incorrect_credentials: 'no coincide con la contraseña registrada'
+        update_account:
+          passwords_do_not_match: 'y la nueva contraseña son diferentes'
+          incorrect_credentials: 'es incorrecta'
+        recover_password:
+          does_not_exist: 'no está asociado a ningun usuario'
+        password_reset:
+          are_not_equal: 'es diferente a la confirmación de la contraseña'
+        admin/create_user:
+          email_exists: 'ya está registrado por otro usuario'
+        admin/update_account:
+          email_exists: 'ya está registrado por otro usuario'
+          invalid_role: 'es inválido. Debe ser cualquiera de estos tres: Vista, Administrador o Editor'
+
+      messages:
+        blank: 'no debe estar en blanco'
+        taken: 'ya ha sido registrado'
+        too_short: 'debe ser mínimo de %{count} caracteres'
+        too_long: 'debe tener como máximo %{count} caracteres'
+        wrong_length: 'debe ser de %{count} caracteres'
+
+  activerecord:
+    attributes:
+      article:
+        name: El nombre
+        description: La descripción
+        price: El precio
+        avatar: Imagen principal
+        images: Imagenes
+      sell:
+        description: La descripción
+        remitent_name: El nombre del remitente
+        remitent_phone_number: El teléfono del remitente
+        remitent_address: La dirección del remitente
+      article_sell:
+        quantity: La cantidad
+        article_id: El articulo
+        insured_articles: Los articulos a asegurar
+        insurance_policy_id: La aseguranza
+      profile:
+        first_name: El nombre
+        last_name: Los apellidos
+        phone_number: El número de teléfono
+      user:
+        email: El correo electrónico
+        password: La contraseña
+        password_confirmation: La confirmación de la contraseña
+        role: Rol
+      destinatary:
+        full_name: El nombre completo
+        street: La calle
+        int_number: El no. int
+        ext_number: El no. ext
+        neighborhood: La colonia
+        city: La ciudad
+        state: El estado
+        zip_code: El código postal
+        primary_phone_number: El teléfono (1)
+        secondary_phone_number: El teléfono (2)
+        delivery_place: El lugar de entrega
+        estafeta_office_address: El campo 'ocurre'
+      departure_date:
+        date: La fecha de salida
+      remitent:
+        name: El nombre del remitente
+        phone_number: El teléfono del remitente
+        phone_code: La lada
+        address: La dirección del remitente
+      default_price:
+        price: El precio
+
+    errors:
+      models:
+        article:
+          content_type_invalid: 'es un formato invalido. Formatos permitidos: %{authorized_types}'
+        sell:
+          greater_than_today: 'es mayor a la fecha actual'
+        article_sell:
+          insufficient_articles: 'es mayor que el numero de articulos en stock'
+          article_does_not_exist: 'no esta registrado en el inventario'
+          greater_than_quantity: 'debe ser menor o igual a la cantidad establecida'
+
+      messages:
+        blank: 'no debe estar en blanco'
+        taken: 'ya ha sido registrado'
+        greater_than: 'debe ser mayor a %{count}'
+        greater_than_or_equal_to: 'debe ser mayor o igual a %{count}'
+        too_long: 'debe tener como máximo %{count} caracteres'
+        wrong_length: 'debe ser de %{count} caracteres'

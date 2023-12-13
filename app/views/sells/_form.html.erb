@@ -1,0 +1,13 @@
+<%= form_with(model: sell, id: id, class: "flex flex-col w-full gap-5") do |form| %>
+  <div class="flex flex-col md:gap-1 w-full items-start gap-2">
+    <%= form.label :description, 'Descripción del envío (opcional):', class: 'font-bold mb-1' %>
+    <%= form.rich_text_area :description, class: "input-tailwindcss #{ error_input_border(sell.errors.include?(:description)) } h-40 overflow-y-auto" %>
+    <% if sell.errors.include?(:description) %>
+      <%= render 'shared/input_error_msg', { object: sell, attribute: :description } %>
+    <% end %>
+  </div>
+
+  <div class="flex items-center justify-end gap-3 mt-5">
+    <%= form.submit btn_text, class: "rounded py-2 px-4 bg-green-500 text-white font-semibold cursor-pointer", data: { turbo_frame: '_top' } %>
+  </div>
+<% end %>
